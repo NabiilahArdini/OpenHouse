@@ -10,7 +10,6 @@ output:
     toc_float:
       collapsed: false
     df_print: paged
-    code_folding: hide
 ---
 
 <style>
@@ -53,7 +52,8 @@ Throughout this project, we will try to analyze **what factors lead to employee 
 
 ```{r}
 # read data
-
+att <- read.csv("data-attrition.csv")
+att
 ```
 
 Data Description:
@@ -76,33 +76,84 @@ Data Description:
 
 ## Exploratory Data Analysis
 
-We will be analyzing the attrition status of our company by counting how many employees is staying/leaving the company.
+We will be analyzing the attrition status for each department in our company by counting how many employees is leaving the company.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+# load library
 
+# install.packages("pacman")
+library(pacman)
+p_load(dplyr, ggplot2, ggthemes)
 ```
 
 ```{r}
-# calculating proportion
+# prepare data
 
+data_agg <- att %>% 
+  group_by(department, attrition) %>%
+  summarize(count = n())
+
+data_agg
 ```
 
 ```{r}
-# load libraries
+# prepare data for visualization
 
-# visualization
+data_viz <- data_agg %>% 
+  filter(attrition == "Leave")
 
+data_viz
 ```
 
-We will analyze whether **monthly income** affect employees attrition. 
-
 ```{r}
-# prepare visualization data
+# data visualization
 
+ggplot(data_viz, aes(x = reorder(department, count), y = count)) +
+  geom_col(fill = "blue4") + 
+  labs(
+    title = "Number of employee",
+    subtitle = "reported from a batch of employee by job roles",
+    caption = "Source: IBM Watson",
+    x = NULL,
+    y = NULL
+  ) + theme_economist()
 # visualize
 
 ```
 
+We will next analyze whether **monthly income** affect employees attrition. 
 
+```{r}
+# data visualization
+ggplot(att, aes(x = monthly_income)) +
+  geom_density(aes(fill = attrition), alpha = 0.7) +
+  labs(
+    title = "Monthly income distribution",
+    subtitle = "estimated using kernel density function",
+    caption = "Source: IBM Watson",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) +
+  theme_economist()
+```
+
+We will next confirm whether the condition applies to all department.
+
+```{r}
+# data visualization
+
+ggplot(att, aes(x = department, y = monthly_income)) +
+  geom_boxplot(aes(fill = attrition), outlier.shape = NA) +
+  labs(
+    title = "Monthly income distribution",
+    subtitle = "for each department",
+    caption = "Source: IBM Watson",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  ) +
+  theme_economist()
+```
 
 ***
