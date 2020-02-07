@@ -1,0 +1,108 @@
+---
+title: "Company's Attrition Analysis"
+author: "Nabiilah Ardini Fauziyyah"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: false
+    df_print: paged
+    code_folding: hide
+---
+
+<style>
+h1.title {
+  text-align: center;
+}
+h4.author {
+  text-align: center;
+}
+h4.date {
+  text-align: center;
+}
+
+body {
+text-align: justify}
+
+</style>
+
+```{r setup, include=FALSE}
+# clear-up the environment
+rm(list = ls())
+
+# chunk options
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  comment = "#>"
+)
+
+options(scipen = 9)
+```
+
+
+## Case Study
+
+Attrition in business is the reduction in staff and employees in a company. The cause of attrition may be either voluntary or involuntary. Due to the expenses associated with training new employees, any type of employee attrition is typically seen to have a monetary cost. In general, relatively high attrition is problematic for companies. HR professionals often assume a leadership role in designing company compensation programs, work culture and motivation systems that help the organization retain top employees.
+
+Throughout this project, we will try to analyze **what factors lead to employee attrition**. We will use a previously cleaned simulated dataset published by the Human Resource department of IBM (International Business Machines) Corporation. IBM is an American multinational information technology company headquartered in Armonk, New York, with operations in over 170 countries.
+
+```{r}
+# read data
+
+```
+
+Data Description:
+
+* **attrition**: employees attrition status (leave/stay)
+* **age**: age of employee
+* **gender**: employee's gender
+* **marital_status**: employee's marital status
+* **department**: employee's department 
+* **job_role**: employee's job role
+* **job_level**: employee's current rank on job role
+* **job_involvement**: employee's job involvement
+* **job_satisfaction**: employee's job satisfaction
+* **education**: education status (Below College/College/Bachelor/Master/Doctor)
+* **education field**: self-explanatory
+* **business_travel**: employee's business travel frequency
+* **standard_hours**: standard working hours of employee
+* **over_time**: whether employee works overtime
+* **monthly_income**: employee's monthly_income
+
+## Exploratory Data Analysis
+
+We will be analyzing the attrition status of our company by counting how many employees is staying/leaving the company.
+
+```{r}
+
+```
+
+```{r}
+# calculating proportion
+
+```
+
+```{r}
+# load libraries
+
+# visualization
+
+```
+
+We will analyze whether **monthly income** affect employees attrition. 
+
+```{r}
+# prepare visualization data
+
+# visualize
+
+```
+
+
+
+***
