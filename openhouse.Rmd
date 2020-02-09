@@ -10,6 +10,7 @@ output:
     toc_float:
       collapsed: false
     df_print: paged
+    code_folding: hide
 ---
 
 <style>
@@ -46,12 +47,13 @@ options(scipen = 9)
 
 ## Case Study
 
-Attrition in business is the reduction in staff and employees in a company. The cause of attrition may be either voluntary or involuntary. Due to the expenses associated with training new employees, any type of employee attrition is typically seen to have a monetary cost. In general, relatively high attrition is problematic for companies. HR professionals often assume a leadership role in designing company compensation programs, work culture and motivation systems that help the organization retain top employees.
+Attrition in business is the reduction in staff and employees in a company. The cause of attrition may be either voluntary or involuntary. Due to the expenses associated with training new employees, any type of employee attrition is typically seen to have a monetary cost. In general, relatively high attrition is problematic for companies. HR professionals often assume a leadership role in designing company compensation programs, work culture and motivation systems that help the organization retain top employees[^1].
 
-Throughout this project, we will try to analyze **what factors lead to employee attrition**. We will use a previously cleaned simulated dataset published by the Human Resource department of IBM (International Business Machines) Corporation. IBM is an American multinational information technology company headquartered in Armonk, New York, with operations in over 170 countries.
+Throughout this project, we will try to analyze **what factors lead to employee attrition**. We will use a previously cleaned simulated dataset published by the Human Resource department of IBM (International Business Machines) Corporation. IBM is an American multinational information technology company headquartered in Armonk, New York.
 
 ```{r}
 # read data
+
 att <- read.csv("data-attrition.csv")
 att
 ```
@@ -76,7 +78,7 @@ Data Description:
 
 ## Exploratory Data Analysis
 
-We will be analyzing the attrition status for each department in our company by counting how many employees is leaving the company.
+We will be analyzing the attrition status for each department in our company by counting how many employees are leaving the company.
 
 ```{r message=FALSE, warning=FALSE}
 # load library
@@ -90,7 +92,7 @@ p_load(dplyr, ggplot2, ggthemes)
 # prepare data
 
 data_agg <- att %>% 
-  group_by(department, attrition) %>%
+  group_by(department, attrition) %>% 
   summarize(count = n())
 
 data_agg
@@ -117,11 +119,9 @@ ggplot(data_viz, aes(x = reorder(department, count), y = count)) +
     x = NULL,
     y = NULL
   ) + theme_economist()
-# visualize
-
 ```
 
-We will next analyze whether **monthly income** affect employees attrition. 
+Based on the plot, **Research Development** department has the highest number of employees leaving their current job. We will next analyze whether **monthly income** affect employees behavior on leaving their current job. 
 
 ```{r}
 # data visualization
@@ -138,7 +138,7 @@ ggplot(att, aes(x = monthly_income)) +
   theme_economist()
 ```
 
-We will next confirm whether the condition applies to all department.
+Based on the plot, there is a trend between employees who are leaving their job in terms of monthly income. Employees who leave the company tend to have lower monthly income than the employees who stay. We will next confirm whether the condition applies to all department.
 
 ```{r}
 # data visualization
@@ -156,4 +156,8 @@ ggplot(att, aes(x = department, y = monthly_income)) +
   theme_economist()
 ```
 
-***
+Based on the plot, monthly income do differentiate the employees who leave and stay in the company, including Research Development department, in exception of the Sales Department. There might be another factor that affect employees attrition from the Sales Department.
+
+Both the *department* and the *monthly income* variable can influence employees behavior towards attrition. Those variable will be useful to predict employees attrition using machine learning algorithms. 
+
+[^1]: [Mehta, K. 2018. IBM HR Attrition and Performance Analysis.](https://www.kaggle.com/krushnamehta/ibm-hr-attrition-and-performance-analysis)
